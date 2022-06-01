@@ -136,6 +136,11 @@
               Thank you for Participating !
             </h4>
           </header>
+          <div class="text-center">
+            <v-btn dark class="ma-2" color="light-blue darken-4">
+              Detail Result
+            </v-btn>
+          </div>
         </div>
       </transition>
     </div>
@@ -162,13 +167,13 @@ export default {
       questions: [],
       question_id: null,
       test_response: [],
-      is_submitted: false,
+      is_submitted: true,
       marks: 0,
       result: 0,
     }
   },
   created() {
-    this.getQuestions()
+    // this.getQuestions()
   },
   methods: {
     restart() {
