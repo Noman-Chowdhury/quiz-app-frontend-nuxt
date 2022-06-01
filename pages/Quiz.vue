@@ -167,13 +167,13 @@ export default {
       questions: [],
       question_id: null,
       test_response: [],
-      is_submitted: true,
+      is_submitted: false,
       marks: 0,
       result: 0,
     }
   },
   created() {
-    // this.getQuestions()
+    this.getQuestions()
   },
   methods: {
     restart() {
