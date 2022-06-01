@@ -1,49 +1,68 @@
 <template>
   <section class="test">
-
     <!--questionBox-->
     <div id="app" class="questionBox">
-
       <!-- transition -->
       <transition
-v-if="!is_submitted" :duration="{ enter: 500, leave: 300 }" enter-active-class="animated zoomIn"
-                  leave-active-class="animated zoomOut" mode="out-in">
-
+        v-if="!is_submitted"
+        :duration="{ enter: 500, leave: 300 }"
+        enter-active-class="animated zoomIn"
+        leave-active-class="animated zoomOut"
+        mode="out-in"
+      >
         <!--qusetionContainer-->
-        <div v-if="questionIndex<questions.length" :key="questionIndex" class="questionContainer">
-
+        <div
+          v-if="questionIndex < questions.length"
+          :key="questionIndex"
+          class="questionContainer"
+        >
           <header>
             <h1 class="title is-6">Quiz</h1>
             <!--progress-->
             <div class="progressContainer">
-              <progress class="progress is-info is-small" :value="(questionIndex/questions.length)*100" max="100">
+              <progress
+                class="progress is-info is-small"
+                :value="(questionIndex / questions.length) * 100"
+                max="100"
+              >
                 {{ (questionIndex / questions.length) * 100 }}%
               </progress>
-              <p>{{ Math.round((questionIndex / questions.length) * 100) }}% complete</p>
+              <p>
+                {{ Math.round((questionIndex / questions.length) * 100) }}%
+                complete
+              </p>
             </div>
             <!--/progress-->
           </header>
 
           <!-- questionTitle -->
-          <h2 class="titleContainer title">{{ questions[questionIndex].question }}</h2>
+          <h2 class="titleContainer title">
+            {{ questions[questionIndex].question }}
+          </h2>
 
           <!-- quizOptions -->
           <div class="optionContainer">
             <div
-v-for="(response, index) in questions[questionIndex].answers" :key="index"
-                 class="option"
-                 :class="{ 'is-selected': userResponses[questionIndex] === response.id}" @click="selectOption(response.id, questions[questionIndex].id)">
+              v-for="(response, index) in questions[questionIndex].answers"
+              :key="index"
+              class="option"
+              :class="{
+                'is-selected': userResponses[questionIndex] === response.id,
+              }"
+              @click="selectOption(response.id, questions[questionIndex].id)"
+            >
               {{ index | charIndex }}. {{ response.option }}
             </div>
           </div>
 
           <!--quizFooter: navigation and progress-->
           <footer class="questionFooter">
-
             <!--pagination-->
             <nav class="pagination" role="navigation" aria-label="pagination">
-
-              <span>Question {{ questionIndex + 1 }} of {{ questions.length }}</span>
+              <span
+                >Question {{ questionIndex + 1 }} of
+                {{ questions.length }}</span
+              >
               <!--              &lt;!&ndash; back button &ndash;&gt;-->
               <!--              <a class="button" v-on:click="prev();" :disabled="questionIndex < 1">-->
               <!--                Back-->
@@ -51,25 +70,34 @@ v-for="(response, index) in questions[questionIndex].answers" :key="index"
 
               <!-- next button -->
               <a
-v-if="userResponses[questionIndex]!==null && (questionIndex+1) !== questions.length" class="button"
-                 :class="(userResponses[questionIndex]==null)?'':'is-active'" :disabled="questionIndex>=questions.length"
-                 @click="next();">
-                {{ (questionIndex + 1) === questions.length ? 'Submit' : 'Next' }}
+                v-if="
+                  userResponses[questionIndex] !== null &&
+                  questionIndex + 1 !== questions.length
+                "
+                class="button"
+                :class="userResponses[questionIndex] == null ? '' : 'is-active'"
+                :disabled="questionIndex >= questions.length"
+                @click="next()"
+              >
+                {{ questionIndex + 1 === questions.length ? 'Submit' : 'Next' }}
               </a>
 
               <a
-v-if="userResponses[questionIndex]!==null && (questionIndex+1) === questions.length" class="button"
-                 :class="(userResponses[questionIndex]==null)?'':'is-active'" :disabled="questionIndex>=questions.length"
-                 @click="submit();">
+                v-if="
+                  userResponses[questionIndex] !== null &&
+                  questionIndex + 1 === questions.length
+                "
+                class="button"
+                :class="userResponses[questionIndex] == null ? '' : 'is-active'"
+                :disabled="questionIndex >= questions.length"
+                @click="submit()"
+              >
                 {{ 'Submit' }}
               </a>
-
             </nav>
             <!--/pagination-->
-
           </footer>
           <!--/quizFooter-->
-
         </div>
         <!--/questionContainer-->
 
@@ -94,38 +122,37 @@ v-if="userResponses[questionIndex]!==null && (questionIndex+1) === questions.len
 
         <!--        </div>-->
         <!--        &lt;!&ndash;/quizCompetedResult&ndash;&gt;-->
-
       </transition>
 
       <transition v-if="is_submitted">
-
         <!--qusetionContainer-->
         <div class="questionContainer">
-
           <header>
             <h1 class="title">Result</h1>
-            <h2 class="titleContainer title">You have got {{ result}} out of {{ marks }}</h2>
-            <h4 class="text-center text--primary">Thank you for Participating !</h4>
+            <h2 class="titleContainer title">
+              You have got {{ result }} out of {{ marks }}
+            </h2>
+            <h4 class="text-center text--primary">
+              Thank you for Participating !
+            </h4>
           </header>
-
         </div>
       </transition>
     </div>
     <!--/questionBox-->
-
   </section>
 </template>
 
 <script>
-import Vue from "vue";
+import Vue from 'vue'
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Quiz',
   filters: {
-    charIndex (i) {
-      return String.fromCharCode(97 + i);
-    }
+    charIndex(i) {
+      return String.fromCharCode(97 + i)
+    },
   },
   data() {
     return {
@@ -135,32 +162,31 @@ export default {
       questions: [],
       question_id: null,
       test_response: [],
-      is_submitted : false,
+      is_submitted: false,
       marks: 0,
-      result : 0
+      result: 0,
     }
   },
   created() {
     this.getQuestions()
   },
   methods: {
-    restart () {
-      this.questionIndex = 0;
-      this.userResponses = Array(this.questions.length).fill(null);
+    restart() {
+      this.questionIndex = 0
+      this.userResponses = Array(this.questions.length).fill(null)
     },
-    selectOption (answer, question) {
-
-      Vue.set(this.userResponses, this.questionIndex, answer);
-      this.test_response.push({question_id: question, answer_id: answer})
+    selectOption(answer, question) {
+      Vue.set(this.userResponses, this.questionIndex, answer)
+      this.test_response.push({ question_id: question, answer_id: answer })
       // console.log(this.userResponses);
     },
-    next () {
-      if (this.questionIndex < this.questions.length)
-        this.questionIndex++;
+    next() {
+      if (this.questionIndex < this.questions.length) this.questionIndex++
     },
-    submit () {
-      this.$store.dispatch('submitQuestionAnswer', {answers: this.test_response})
-        .then(res => {
+    submit() {
+      this.$store
+        .dispatch('submitQuestionAnswer', { answers: this.test_response })
+        .then((res) => {
           this.is_submitted = true
           this.marks = res.marks
           this.result = res.result
@@ -184,28 +210,26 @@ export default {
     //   //return this.userResponses.filter(function(val) { return val }).length;
     // },
     getQuestions() {
-      this.$store.dispatch('getQuestionFromDB')
-        .then(() => {
-          this.questions = this.$store.getters.Questions
-          this.userResponses = Array(this.questions.length).fill(null)
-        })
-    }
-
-  }
+      this.$store.dispatch('getQuestionFromDB').then(() => {
+        this.questions = this.$store.getters.Questions
+        this.userResponses = Array(this.questions.length).fill(null)
+      })
+    },
+  },
 }
 </script>
 
 <style scoped lang="scss">
 $trans_duration: 0.3s;
-$primary_color: #3D5AFE;
+$primary_color: #3d5afe;
 
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 14px;
 
   height: 100vh;
 
-  background: #CFD8DC;
+  background: #cfd8dc;
 
   /* mocking native UI */
   cursor: default !important; /* remove text selection cursor */
@@ -236,12 +260,11 @@ body {
 }
 
 .questionBox {
-
   max-width: 30rem;
   width: 30rem;
   min-height: 30rem;
 
-  background: #FAFAFA;
+  background: #fafafa;
   position: relative;
   display: flex;
 
@@ -292,7 +315,6 @@ body {
     text-align: center;
     margin: 0 auto;
     padding: 1.5rem;
-
   }
 
   .quizForm {
@@ -319,11 +341,11 @@ body {
     text-align: center;
 
     > .icon {
-      color: #FF5252;
+      color: #ff5252;
       font-size: 5rem;
 
       .is-active {
-        color: #00E676;
+        color: #00e676;
       }
     }
   }
@@ -393,7 +415,7 @@ body {
 
   &:hover {
     cursor: pointer;
-    background: #ECEFF1;
+    background: #eceff1;
     border-color: rgba(0, 0, 0, 0.25);
   }
 
@@ -404,7 +426,6 @@ body {
 
     &:hover {
       background: darken($primary_color, 10%);
-
     }
   }
 }
@@ -427,5 +448,4 @@ body {
     border-radius: 6px 6px 0px 0px;
   }
 }
-
 </style>
