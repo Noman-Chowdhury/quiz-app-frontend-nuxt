@@ -12,7 +12,8 @@
     "lint:prettier": "prettier --check .",
     "lint": "npm run lint:js && npm run lint:style && npm run lint:prettier",
     "lintfix": "prettier --write --list-different . && npm run lint:js -- --fix && npm run lint:style -- --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
