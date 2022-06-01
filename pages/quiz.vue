@@ -137,7 +137,7 @@
             </h4>
           </header>
           <div class="text-center">
-            <v-btn dark class="ma-2" color="light-blue darken-4">
+            <v-btn dark class="ma-2" color="light-blue darken-4" to="/result">
               Detail Result
             </v-btn>
           </div>
@@ -152,8 +152,7 @@
 import Vue from 'vue'
 
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Quiz',
+  name: 'QuizPage',
   filters: {
     charIndex(i) {
       return String.fromCharCode(97 + i)
@@ -167,13 +166,13 @@ export default {
       questions: [],
       question_id: null,
       test_response: [],
-      is_submitted: true,
+      is_submitted: false,
       marks: 0,
       result: 0,
     }
   },
   created() {
-    // this.getQuestions()
+    this.getQuestions()
   },
   methods: {
     restart() {

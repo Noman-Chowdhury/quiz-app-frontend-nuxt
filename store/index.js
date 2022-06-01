@@ -37,6 +37,15 @@ export default {
           })
       })
     },
+    async submittedQuestionDetail({ commit }) {
+      await this.$axios
+        .$get('http://127.0.0.1:3000/api/user/submitted/questions')
+        .then((response) => {
+          commit('setQuestions', response.questions)
+          // commit('setTotalMarks', response.point)
+          // commit('setTotalTime', response.time)
+        })
+    },
   },
   modules: {},
   getters: {
