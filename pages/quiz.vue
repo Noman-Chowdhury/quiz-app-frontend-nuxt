@@ -1,154 +1,169 @@
 <template>
   <section class="test">
-    <!--questionBox-->
-    <div id="app" class="questionBox">
-      <!-- transition -->
-      <transition
-        v-if="!is_submitted"
-        :duration="{ enter: 500, leave: 300 }"
-        enter-active-class="animated zoomIn"
-        leave-active-class="animated zoomOut"
-        mode="out-in"
-      >
-        <!--qusetionContainer-->
-        <div
-          v-if="questionIndex < questions.length"
-          :key="questionIndex"
-          class="questionContainer"
+    <div v-if="alreadyDone">You have submitted todays quiz</div>
+    <div v-else>
+      <client-only v-if="startCounting && !is_submitted">
+        <CountdownTimer :seconds="countDown"></CountdownTimer>
+      </client-only>
+      <!--questionBox-->
+      <div id="app" class="questionBox">
+        <!-- transition -->
+        <transition
+          v-if="!is_submitted"
+          :duration="{ enter: 500, leave: 300 }"
+          enter-active-class="animated zoomIn"
+          leave-active-class="animated zoomOut"
+          mode="out-in"
         >
-          <header>
-            <h1 class="title is-6">Quiz</h1>
-            <!--progress-->
-            <div class="progressContainer">
-              <progress
-                class="progress is-info is-small"
-                :value="(questionIndex / questions.length) * 100"
-                max="100"
-              >
-                {{ (questionIndex / questions.length) * 100 }}%
-              </progress>
-              <p>
-                {{ Math.round((questionIndex / questions.length) * 100) }}%
-                complete
-              </p>
-            </div>
-            <!--/progress-->
-          </header>
+          <!--qusetionContainer-->
+          <div
+            v-if="questionIndex < questions.length"
+            :key="questionIndex"
+            class="questionContainer"
+          >
+            <header>
+              <h1 class="title is-6">Quiz</h1>
+              <!--progress-->
+              <div class="progressContainer">
+                <div class="d-flex justify-center">
+                  <progress
+                    class="progress is-info is-small"
+                    :value="(questionIndex / questions.length) * 100"
+                    max="100"
+                  >
+                    {{ (questionIndex / questions.length) * 100 }}%
+                  </progress>
+                </div>
+                <p>
+                  {{ Math.round((questionIndex / questions.length) * 100) }}%
+                  complete
+                </p>
+              </div>
+              <!--/progress-->
+            </header>
 
-          <!-- questionTitle -->
-          <h2 class="titleContainer title">
-            {{ questions[questionIndex].question }}
-          </h2>
-
-          <!-- quizOptions -->
-          <div class="optionContainer">
-            <div
-              v-for="(response, index) in questions[questionIndex].answers"
-              :key="index"
-              class="option"
-              :class="{
-                'is-selected': userResponses[questionIndex] === response.id,
-              }"
-              @click="selectOption(response.id, questions[questionIndex].id)"
-            >
-              {{ index | charIndex }}. {{ response.option }}
-            </div>
-          </div>
-
-          <!--quizFooter: navigation and progress-->
-          <footer class="questionFooter">
-            <!--pagination-->
-            <nav class="pagination" role="navigation" aria-label="pagination">
-              <span
-                >Question {{ questionIndex + 1 }} of
-                {{ questions.length }}</span
-              >
-              <!--              &lt;!&ndash; back button &ndash;&gt;-->
-              <!--              <a class="button" v-on:click="prev();" :disabled="questionIndex < 1">-->
-              <!--                Back-->
-              <!--              </a>-->
-
-              <!-- next button -->
-              <a
-                v-if="
-                  userResponses[questionIndex] !== null &&
-                  questionIndex + 1 !== questions.length
-                "
-                class="button"
-                :class="userResponses[questionIndex] == null ? '' : 'is-active'"
-                :disabled="questionIndex >= questions.length"
-                @click="next()"
-              >
-                {{ questionIndex + 1 === questions.length ? 'Submit' : 'Next' }}
-              </a>
-
-              <a
-                v-if="
-                  userResponses[questionIndex] !== null &&
-                  questionIndex + 1 === questions.length
-                "
-                class="button"
-                :class="userResponses[questionIndex] == null ? '' : 'is-active'"
-                :disabled="questionIndex >= questions.length"
-                @click="submit()"
-              >
-                {{ 'Submit' }}
-              </a>
-            </nav>
-            <!--/pagination-->
-          </footer>
-          <!--/quizFooter-->
-        </div>
-        <!--/questionContainer-->
-
-        <!--        &lt;!&ndash;quizCompletedResult&ndash;&gt;-->
-        <!--        <div v-if="questionIndex >= questions.length" v-bind:key="questionIndex" class="quizCompleted has-text-centered">-->
-
-        <!--          &lt;!&ndash; quizCompletedIcon: Achievement Icon &ndash;&gt;-->
-        <!--          <span class="icon">-->
-        <!--                <i class="fa" :class="score()>3?'fa-check-circle-o is-active':'fa-times-circle'"></i>-->
-        <!--              </span>-->
-
-        <!--          &lt;!&ndash;resultTitleBlock&ndash;&gt;-->
-        <!--          <h2 class="title">-->
-        <!--            You did {{ (score() > 7 ? 'an amazing' : (score() >= 4 ? 'a good' : 'a poor')) }} job!-->
-        <!--          </h2>-->
-        <!--          <p class="subtitle">-->
-        <!--            Total score: {{ score() }} / {{ questions.length }}-->
-        <!--          </p>-->
-        <!--          <br>-->
-        <!--          <a class="button" @click="restart()">restart <i class="fa fa-refresh"></i></a>-->
-        <!--          &lt;!&ndash;/resultTitleBlock&ndash;&gt;-->
-
-        <!--        </div>-->
-        <!--        &lt;!&ndash;/quizCompetedResult&ndash;&gt;-->
-      </transition>
-
-      <transition v-if="is_submitted">
-        <!--qusetionContainer-->
-        <div class="questionContainer">
-          <header>
-            <h1 class="title">Result</h1>
+            <!-- questionTitle -->
             <h2 class="titleContainer title">
-              You have got {{ result }} out of {{ marks }}
+              {{ questions[questionIndex].question }}
             </h2>
-            <h4 class="text-center text--primary">
-              Thank you for Participating !
-            </h4>
-          </header>
-          <div class="text-center">
-            <v-btn dark class="ma-2" color="light-blue darken-4" to="/result">
-              Detail Result
-            </v-btn>
+
+            <!-- quizOptions -->
+            <div class="optionContainer">
+              <div
+                v-for="(response, index) in questions[questionIndex].answers"
+                :key="index"
+                class="option"
+                :class="{
+                  'is-selected': userResponses[questionIndex] === response.id,
+                }"
+                @click="selectOption(response.id, questions[questionIndex].id)"
+              >
+                {{ index | charIndex }}. {{ response.option }}
+              </div>
+            </div>
+
+            <!--quizFooter: navigation and progress-->
+            <footer class="questionFooter">
+              <!--pagination-->
+              <nav class="pagination" role="navigation" aria-label="pagination">
+                <span
+                  >Question {{ questionIndex + 1 }} of
+                  {{ questions.length }}</span
+                >
+                <!--              &lt;!&ndash; back button &ndash;&gt;-->
+                <!--              <a class="button" v-on:click="prev();" :disabled="questionIndex < 1">-->
+                <!--                Back-->
+                <!--              </a>-->
+
+                <!-- next button -->
+                <a
+                  v-if="
+                    userResponses[questionIndex] !== null &&
+                    questionIndex + 1 !== questions.length
+                  "
+                  class="button"
+                  :class="
+                    userResponses[questionIndex] == null ? '' : 'is-active'
+                  "
+                  :disabled="questionIndex >= questions.length"
+                  @click="next()"
+                >
+                  {{
+                    questionIndex + 1 === questions.length ? 'Submit' : 'Next'
+                  }}
+                </a>
+
+                <a
+                  v-if="
+                    userResponses[questionIndex] !== null &&
+                    questionIndex + 1 === questions.length
+                  "
+                  class="button"
+                  :class="
+                    userResponses[questionIndex] == null ? '' : 'is-active'
+                  "
+                  :disabled="questionIndex >= questions.length"
+                  @click="submit()"
+                >
+                  {{ 'Submit' }}
+                </a>
+              </nav>
+              <!--/pagination-->
+            </footer>
+            <!--/quizFooter-->
           </div>
-        </div>
-      </transition>
+          <!--/questionContainer-->
+
+          <!--        &lt;!&ndash;quizCompletedResult&ndash;&gt;-->
+          <!--        <div v-if="questionIndex >= questions.length" v-bind:key="questionIndex" class="quizCompleted has-text-centered">-->
+
+          <!--          &lt;!&ndash; quizCompletedIcon: Achievement Icon &ndash;&gt;-->
+          <!--          <span class="icon">-->
+          <!--                <i class="fa" :class="score()>3?'fa-check-circle-o is-active':'fa-times-circle'"></i>-->
+          <!--              </span>-->
+
+          <!--          &lt;!&ndash;resultTitleBlock&ndash;&gt;-->
+          <!--          <h2 class="title">-->
+          <!--            You did {{ (score() > 7 ? 'an amazing' : (score() >= 4 ? 'a good' : 'a poor')) }} job!-->
+          <!--          </h2>-->
+          <!--          <p class="subtitle">-->
+          <!--            Total score: {{ score() }} / {{ questions.length }}-->
+          <!--          </p>-->
+          <!--          <br>-->
+          <!--          <a class="button" @click="restart()">restart <i class="fa fa-refresh"></i></a>-->
+          <!--          &lt;!&ndash;/resultTitleBlock&ndash;&gt;-->
+
+          <!--        </div>-->
+          <!--        &lt;!&ndash;/quizCompetedResult&ndash;&gt;-->
+        </transition>
+
+        <transition v-if="is_submitted">
+          <!--qusetionContainer-->
+          <div class="questionContainer">
+            <header>
+              <h1 class="title">Result</h1>
+              <h2 class="titleContainer title">
+                You have got {{ result }} out of {{ marks }}
+              </h2>
+              <h4 class="text-center text--primary">
+                Thank you for Participating !
+              </h4>
+            </header>
+            <div class="text-center">
+              <v-btn dark class="ma-2" color="light-blue darken-4" to="/result">
+                Detail Result
+              </v-btn>
+            </div>
+          </div>
+        </transition>
+      </div>
     </div>
     <!--/questionBox-->
   </section>
 </template>
 
 <script>
+/* eslint-disable object-shorthand */
 import Vue from 'vue'
 
 export default {
@@ -169,10 +184,20 @@ export default {
       is_submitted: false,
       marks: 0,
       result: 0,
+      countDown: 0,
+      startCounting: false,
+      changedTab: 0,
+      progress: 0,
+      alreadyDone: false,
     }
   },
-  created() {
+  mounted() {
     this.getQuestions()
+    this.check()
+    this.$nuxt.$on('submitAnswers', this.submit)
+  },
+  beforeDestroy() {
+    this.$nuxt.$off('submitAnswers')
   },
   methods: {
     restart() {
@@ -188,36 +213,53 @@ export default {
       if (this.questionIndex < this.questions.length) this.questionIndex++
     },
     submit() {
+      if (this.test_response.length !== this.questions.length) {
+        for (let i = 0; i < this.test_response.length; i++) {
+          this.questions = this.questions.filter(
+            (el) => el.id !== this.test_response[i].question_id
+          )
+        }
+      }
       this.$store
-        .dispatch('submitQuestionAnswer', { answers: this.test_response })
+        .dispatch('submitQuestionAnswer', {
+          answers: this.test_response,
+          not_submitted: this.questions,
+        })
         .then((res) => {
           this.is_submitted = true
           this.marks = res.marks
           this.result = res.result
+          this.test_response = []
+          this.userResponses = []
         })
     },
-    // Return "true" count in userResponses
-    // score: function() {
-    //   var score = 0;
-    //   for (let i = 0; i < this.userResponses.length; i++) {
-    //     if (
-    //         typeof this.questions[i].responses[
-    //             this.userResponses[i]
-    //             ] !== "undefined" &&
-    //         this.questions[i].responses[this.userResponses[i]].correct
-    //     ) {
-    //       score = score + 1;
-    //     }
-    //   }
-    //   return score;
-    //
-    //   //return this.userResponses.filter(function(val) { return val }).length;
-    // },
     getQuestions() {
-      this.$store.dispatch('getQuestionFromDB').then(() => {
-        this.questions = this.$store.getters.Questions
-        this.userResponses = Array(this.questions.length).fill(null)
-      })
+      this.$store
+        .dispatch('getQuestionFromDB')
+        .then(() => {
+          this.questions = this.$store.getters.Questions
+          this.userResponses = Array(this.questions.length).fill(null)
+          this.countDown = this.$store.getters.Time
+          this.startCounting = true
+        })
+        .catch(() => {
+          this.alreadyDone = true
+        })
+    },
+    check() {
+      if (process.client) {
+        document.addEventListener('visibilitychange', (event) => {
+          if (document.visibilityState === 'visible') {
+            console.log('here')
+          } else {
+            this.changedTab++
+            if (this.changedTab === 1) {
+              alert('You violate the quiz rules')
+              this.submit()
+            }
+          }
+        })
+      }
     },
   },
 }

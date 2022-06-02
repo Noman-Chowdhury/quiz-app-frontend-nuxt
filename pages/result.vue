@@ -10,7 +10,23 @@
         <div class="questionContainer">
           <h2 class="titleContainer title">
             {{ ques.question }}
+            <v-icon
+              aria-hidden="false"
+              :color="ques.correct && ques.answered ? 'success' : 'red'"
+            >
+              {{
+                ques.correct && ques.answered
+                  ? 'mdi-check'
+                  : !ques.correct && ques.answered
+                  ? 'mdi-close'
+                  : ''
+              }}
+            </v-icon>
+            <span class="caption red--text">{{
+              ques.answered ? '' : 'not-answered'
+            }}</span>
           </h2>
+
           <!-- quizOptions -->
           <div
             v-for="(ans, index1) in ques.answers"

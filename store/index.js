@@ -16,14 +16,20 @@ export default {
     },
   },
   actions: {
-    async getQuestionFromDB({ commit }) {
-      await this.$axios
-        .$get('http://127.0.0.1:3000/api/user/questions')
-        .then((response) => {
-          commit('setQuestions', response.questions)
-          commit('setTotalMarks', response.point)
-          commit('setTotalTime', response.time)
-        })
+    getQuestionFromDB({ commit }) {
+      return new Promise((resolve, reject) => {
+        this.$axios
+          .$get('http://127.0.0.1:3000/api/user/questions')
+          .then((response) => {
+            commit('setQuestions', response.questions)
+            commit('setTotalMarks', response.point)
+            commit('setTotalTime', response.time)
+            resolve()
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      })
     },
     submitQuestionAnswer(ct, pd) {
       return new Promise((resolve, reject) => {
@@ -51,6 +57,9 @@ export default {
   getters: {
     Questions(state) {
       return state.questions
+    },
+    Time(state) {
+      return state.time
     },
   },
 }
