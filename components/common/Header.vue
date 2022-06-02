@@ -15,30 +15,30 @@
         <v-icon>mdi-information-outline</v-icon>About
       </v-btn>
 
-<!--      <v-menu offset-y transition="slide-y-transition">-->
-<!--        <template #activator="{ on, attrs }">-->
-<!--          <v-btn icon v-bind="attrs" v-on="on">-->
-<!--            <v-icon>mdi-dots-vertical</v-icon>-->
-<!--          </v-btn>-->
-<!--        </template>-->
+      <!--      <v-menu offset-y transition="slide-y-transition">-->
+      <!--        <template #activator="{ on, attrs }">-->
+      <!--          <v-btn icon v-bind="attrs" v-on="on">-->
+      <!--            <v-icon>mdi-dots-vertical</v-icon>-->
+      <!--          </v-btn>-->
+      <!--        </template>-->
 
-<!--        <v-list>-->
-<!--          <v-list-item-->
-<!--            link-->
-<!--          >-->
-<!--            <v-icon class="pr-2">mdi-account-details</v-icon>-->
-<!--            <v-list-item-title>Profile </v-list-item-title>-->
-<!--          </v-list-item>-->
-<!--          <v-list-item link>-->
-<!--            <v-icon class="pr-2">mdi-account-cog</v-icon>-->
-<!--            <v-list-item-title>Setting</v-list-item-title>-->
-<!--          </v-list-item>-->
-<!--          <v-list-item link @click="handleLogout">-->
-<!--            <v-icon class="pr-2">mdi-location-exit</v-icon>-->
-<!--            <v-list-item-title>Logout</v-list-item-title>-->
-<!--          </v-list-item>-->
-<!--        </v-list>-->
-<!--      </v-menu>-->
+      <!--        <v-list>-->
+      <!--          <v-list-item-->
+      <!--            link-->
+      <!--          >-->
+      <!--            <v-icon class="pr-2">mdi-account-details</v-icon>-->
+      <!--            <v-list-item-title>Profile </v-list-item-title>-->
+      <!--          </v-list-item>-->
+      <!--          <v-list-item link>-->
+      <!--            <v-icon class="pr-2">mdi-account-cog</v-icon>-->
+      <!--            <v-list-item-title>Setting</v-list-item-title>-->
+      <!--          </v-list-item>-->
+      <!--          <v-list-item link @click="handleLogout">-->
+      <!--            <v-icon class="pr-2">mdi-location-exit</v-icon>-->
+      <!--            <v-list-item-title>Logout</v-list-item-title>-->
+      <!--          </v-list-item>-->
+      <!--        </v-list>-->
+      <!--      </v-menu>-->
     </v-app-bar>
   </div>
 </template>

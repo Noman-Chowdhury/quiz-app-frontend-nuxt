@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <HeaderComp/>
+    <HeaderComp />
     <v-main>
       <v-container>
         <Nuxt />
@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import HeaderComp from "@/components/common/Header";
+import HeaderComp from '@/components/common/Header'
 export default {
   name: 'DefaultLayout',
-  components: {HeaderComp},
+  components: { HeaderComp },
 }
 </script>
 <style>

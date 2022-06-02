@@ -1,9 +1,9 @@
+export const state = () => ({
+  questions: [],
+  point: 0,
+  time: null,
+})
 export default {
-  state: {
-    questions: [],
-    point: 0,
-    time: null,
-  },
   mutations: {
     setQuestions(state, values) {
       state.questions = values

@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align: -webkit-center !important;">
+  <div style="text-align: -webkit-center !important">
     <v-snackbar
       v-model="snackbar"
       :timeout="timeout"
@@ -10,16 +10,12 @@
       {{ text }}
 
       <template #action="{ attrs }">
-        <v-btn
-          color="blue"
-          text
-          v-bind="attrs"
-          @click="snackbar = false"
-        >
+        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
           Close
         </v-btn>
       </template>
-    </v-snackbar>    <form>
+    </v-snackbar>
+    <form>
       <v-card elevation="2" width="800px">
         <v-card-text>
           <v-text-field
@@ -36,8 +32,17 @@
                 label="Option A"
                 placeholder="Option A"
                 solo
-                :append-icon="option.option_answer === option.option1 && option.option_answer.length>1 ? 'mdi-cancel' : 'mdi-spellcheck'"
-                @click:append="option.option_answer === option.option1 ? option.option_answer= '' : option.option_answer = option.option1"
+                :append-icon="
+                  option.option_answer === option.option1 &&
+                  option.option_answer.length > 1
+                    ? 'mdi-cancel'
+                    : 'mdi-spellcheck'
+                "
+                @click:append="
+                  option.option_answer === option.option1
+                    ? (option.option_answer = '')
+                    : (option.option_answer = option.option1)
+                "
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="6">
@@ -46,8 +51,17 @@
                 label="Option B"
                 placeholder="Option B"
                 solo
-                :append-icon="option.option_answer === option.option2 && option.option_answer.length>1 ? 'mdi-cancel' : 'mdi-spellcheck'"
-                @click:append="option.option_answer === option.option2 ? option.option_answer= '' : option.option_answer = option.option2"
+                :append-icon="
+                  option.option_answer === option.option2 &&
+                  option.option_answer.length > 1
+                    ? 'mdi-cancel'
+                    : 'mdi-spellcheck'
+                "
+                @click:append="
+                  option.option_answer === option.option2
+                    ? (option.option_answer = '')
+                    : (option.option_answer = option.option2)
+                "
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="6">
@@ -56,8 +70,17 @@
                 label="Option C"
                 placeholder="OptionCB"
                 solo
-                :append-icon="option.option_answer === option.option3 && option.option_answer.length>1 ? 'mdi-cancel' : 'mdi-spellcheck'"
-                @click:append="option.option_answer === option.option3 ? option.option_answer= '' : option.option_answer = option.option3"
+                :append-icon="
+                  option.option_answer === option.option3 &&
+                  option.option_answer.length > 1
+                    ? 'mdi-cancel'
+                    : 'mdi-spellcheck'
+                "
+                @click:append="
+                  option.option_answer === option.option3
+                    ? (option.option_answer = '')
+                    : (option.option_answer = option.option3)
+                "
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="6">
@@ -66,28 +89,37 @@
                 label="Option D"
                 placeholder="Option D"
                 solo
-                :append-icon="option.option_answer === option.option4 && option.option_answer.length>1 ? 'mdi-cancel' : 'mdi-spellcheck'"
-                @click:append="option.option_answer === option.option4 ? option.option_answer= '' : option.option_answer = option.option4"
+                :append-icon="
+                  option.option_answer === option.option4 &&
+                  option.option_answer.length > 1
+                    ? 'mdi-cancel'
+                    : 'mdi-spellcheck'
+                "
+                @click:append="
+                  option.option_answer === option.option4
+                    ? (option.option_answer = '')
+                    : (option.option_answer = option.option4)
+                "
               ></v-text-field>
             </v-col>
           </v-row>
 
           <v-divider></v-divider>
           <v-row class="mt-2">
-          <v-col cols="12" sm="3" md="3">
-            <v-text-field
-              v-model="form.point"
-              label="Point"
-              placeholder="Point"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="9" md="9">
-            <v-textarea
-              v-model="form.feedback"
-              outlined
-              label="Feedback"
-            ></v-textarea>
-          </v-col>
+            <v-col cols="12" sm="3" md="3">
+              <v-text-field
+                v-model="form.point"
+                label="Point"
+                placeholder="Point"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="9" md="9">
+              <v-textarea
+                v-model="form.feedback"
+                outlined
+                label="Feedback"
+              ></v-textarea>
+            </v-col>
           </v-row>
           <div class="text--darken-3">Check question before submit.</div>
         </v-card-text>
@@ -110,7 +142,7 @@ export default {
   name: 'CreateQuestion',
   data() {
     return {
-      option:{
+      option: {
         option1: '',
         option2: '',
         option3: '',
@@ -120,8 +152,8 @@ export default {
       form: {
         question: '',
         options: [],
-        point:'',
-        feedback:''
+        point: '',
+        feedback: '',
       },
       snackbar: false,
       text: '',
@@ -129,7 +161,7 @@ export default {
     }
   },
   methods: {
-    clearForm(){
+    clearForm() {
       for (const key in this.form) {
         this.form[key] = ''
       }
@@ -142,12 +174,12 @@ export default {
       this.$store
         .dispatch('admin/question/createQuestion', this.form)
         .then((response) => {
-      if (response.success){
-          this.clearForm()
-          this.text = 'Question successfully added'
-          this.timeout = 4000
-          this.snackbar=true
-      }
+          if (response.success) {
+            this.clearForm()
+            this.text = 'Question successfully added'
+            this.timeout = 4000
+            this.snackbar = true
+          }
         })
     },
     setOptionVal() {
