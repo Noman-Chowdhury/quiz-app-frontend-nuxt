@@ -1,6 +1,6 @@
 export default {
   state: {
-    namespace:true,
+    namespace: true,
     questions: [],
     point: 0,
     time: null,

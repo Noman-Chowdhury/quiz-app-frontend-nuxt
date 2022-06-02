@@ -1,9 +1,9 @@
 <template>
-<div>11</div>
+  <div>11</div>
 </template>
 
 <script>
 export default {
-  name: "IndexQuestion"
+  name: 'IndexQuestion',
 }
 </script>
