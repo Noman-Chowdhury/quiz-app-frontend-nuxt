@@ -17,11 +17,17 @@
           Start Quiz Some Rules of this Quiz !
         </v-card-title>
         <v-card-text
-          >1. There are 10 questions 2. You will have only 15 seconds per each
-          question. 3. Once you select your answer, it can't be undone. 4. You
-          can't select any option once time goes off. 5. You can't exit from the
-          Quiz while you're playing. 6. You'll get points on the basis of your
-          correct answers.</v-card-text
+          >
+          <ol>
+            <li>There are 10 questions</li>
+            <li>There will be timer. Please keep in mind</li>
+            <li>You'll get points on the basis of your
+              correct answers</li>
+            <li>You cannot come back once you press next</li>
+            <li>You cannot close browser</li>
+            <li>You cannot change or open new tab</li>
+            <li>Once you close this tab. Answer will be submitted</li>
+          </ol></v-card-text
         >
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -33,7 +39,7 @@
           >
             Exit Quiz
           </v-btn>
-          <v-btn color="teal darken-1" dark @click="dialog = false">
+          <v-btn color="teal darken-1" dark to="/quiz">
             Continue
           </v-btn>
         </v-card-actions>

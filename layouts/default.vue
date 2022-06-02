@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <HeaderComp/>
     <v-main>
       <v-container>
         <Nuxt />
@@ -9,8 +10,10 @@
 </template>
 
 <script>
+import HeaderComp from "@/components/common/Header";
 export default {
   name: 'DefaultLayout',
+  components: {HeaderComp},
 }
 </script>
 <style>
@@ -19,5 +22,9 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+/* stylelint-disable */
+.v-input__slot {
+  margin-bottom: -6px !important;
 }
 </style>
