@@ -1,7 +1,7 @@
 <template>
   <section class="test">
-    <div v-if="alreadyDone">You have submitted todays quiz</div>
-    <div v-else>
+    <div v-if="alreadyDone">You have submitted today's quiz</div>
+    <div v-if="questions.length > 0">
       <client-only v-if="startCounting && !is_submitted">
         <CountdownTimer :seconds="countDown"></CountdownTimer>
       </client-only>
@@ -158,6 +158,7 @@
         </transition>
       </div>
     </div>
+    <div v-if="!alreadyDone && questions.length < 1">No Question Available today</div>
     <!--/questionBox-->
   </section>
 </template>
