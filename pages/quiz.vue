@@ -158,7 +158,9 @@
         </transition>
       </div>
     </div>
-    <div v-if="!alreadyDone && questions.length < 1">No Question Available today</div>
+    <div v-if="!alreadyDone && questions.length < 1">
+      No Question Available today
+    </div>
     <!--/questionBox-->
   </section>
 </template>
@@ -253,10 +255,13 @@ export default {
           if (document.visibilityState === 'visible') {
             console.log('here')
           } else {
-            this.changedTab++
-            if (this.changedTab === 1) {
-              alert('You violate the quiz rules')
-              this.submit()
+            this.changedTab = 0
+            if (this.questions && this.questions.length > 0) {
+              this.changedTab++
+              if (this.changedTab === 1) {
+                alert('You violate the quiz rules')
+                this.submit()
+              }
             }
           }
         })
