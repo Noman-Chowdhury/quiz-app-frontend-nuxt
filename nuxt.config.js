@@ -100,4 +100,7 @@ export default {
       runInNewContext: false
     }
   },
+  server: {
+    port: process.env.PORT || 4002,
+  }
 }
