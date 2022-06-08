@@ -95,4 +95,9 @@ export default {
     // proxy: true
     credentials: true,
   },
+  render: {
+    bundleRenderer: {
+      runInNewContext: false
+    }
+  },
 }
