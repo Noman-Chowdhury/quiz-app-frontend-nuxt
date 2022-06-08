@@ -71,7 +71,6 @@ export default {
   },
   getters: {
     Questions(state) {
-      console.log('getters')
       return state.questions
     },
     Time(state) {
