@@ -23,7 +23,7 @@ export default {
     getQuestionFromDB({ commit }) {
       return new Promise((resolve, reject) => {
         this.$axios
-          .$get('http://127.0.0.1:5000/api/user/questions')
+          .$get('https://quick-quiz-back.herokuapp.com/api/user/questions')
           .then((response) => {
             commit('setQuestions', response.questions)
             commit('setTotalMarks', response.point)
@@ -38,7 +38,7 @@ export default {
     submitQuestionAnswer(ct, pd) {
       return new Promise((resolve, reject) => {
         this.$axios
-          .$post('http://127.0.0.1:5000/api/user/questions', pd)
+          .$post('https://quick-quiz-back.herokuapp.com/api/user/questions', pd)
           .then((response) => {
             resolve(response)
           })
@@ -49,7 +49,7 @@ export default {
     },
     submittedQuestionDetail({ commit }) {
       this.$axios
-        .$get('http://127.0.0.1:5000/api/user/submitted/questions')
+        .$get('https://quick-quiz-back.herokuapp.com/api/user/submitted/questions')
         .then((response) => {
           commit('setSubmittedResult', response.questions)
         })
@@ -57,7 +57,7 @@ export default {
     todayAvailable({ commit }) {
       return new Promise((resolve, reject) => {
         this.$axios
-          .$get('http://127.0.0.1:5000/api/user/today')
+          .$get('https://quick-quiz-back.herokuapp.com/api/user/today')
           .then((response) => {
             resolve(response)
           })
