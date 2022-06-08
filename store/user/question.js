@@ -49,7 +49,9 @@ export default {
     },
     submittedQuestionDetail({ commit }) {
       this.$axios
-        .$get('https://quick-quiz-back.herokuapp.com/api/user/submitted/questions')
+        .$get(
+          'https://quick-quiz-back.herokuapp.com/api/user/submitted/questions'
+        )
         .then((response) => {
           commit('setSubmittedResult', response.questions)
         })
