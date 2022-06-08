@@ -17,9 +17,5 @@ export default {
     },
   },
   modules: {},
-  getters: {
-    Questions(state) {
-      return state.questions
-    },
-  },
+  getters: {},
 }

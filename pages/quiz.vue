@@ -150,7 +150,12 @@
               </h4>
             </header>
             <div class="text-center">
-              <v-btn dark class="ma-2" color="light-blue darken-4" to="/result">
+              <v-btn
+                dark
+                class="ma-2"
+                color="light-blue darken-4"
+                @click="$router.push('/result')"
+              >
                 Detail Result
               </v-btn>
             </div>
@@ -194,6 +199,11 @@ export default {
       alreadyDone: false,
     }
   },
+  head() {
+    return {
+      title: 'QuizPage',
+    }
+  },
   mounted() {
     this.getQuestions()
     this.check()
@@ -224,7 +234,7 @@ export default {
         }
       }
       this.$store
-        .dispatch('submitQuestionAnswer', {
+        .dispatch('user/question/submitQuestionAnswer', {
           answers: this.test_response,
           not_submitted: this.questions,
         })
@@ -238,9 +248,9 @@ export default {
     },
     getQuestions() {
       this.$store
-        .dispatch('getQuestionFromDB')
+        .dispatch('user/question/getQuestionFromDB')
         .then(() => {
-          this.questions = this.$store.getters.Questions
+          this.questions = this.$store.getters['user/question/Questions']
           this.userResponses = Array(this.questions.length).fill(null)
           this.countDown = this.$store.getters.Time
           this.startCounting = true
@@ -256,7 +266,11 @@ export default {
             console.log('here')
           } else {
             this.changedTab = 0
-            if (this.questions && this.questions.length > 0) {
+            if (
+              this.questions &&
+              this.questions.length > 0 &&
+              this.test_response.length > 0
+            ) {
               this.changedTab++
               if (this.changedTab === 1) {
                 alert('You violate the quiz rules')

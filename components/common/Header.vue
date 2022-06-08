@@ -8,11 +8,14 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn text @click="$router.replace({ name: 'home' })">
+      <v-btn text @click="$router.replace('/')">
         <v-icon>mdi-home-outline</v-icon>Home
       </v-btn>
-      <v-btn text @click="$router.replace({ name: 'home' })">
-        <v-icon>mdi-information-outline</v-icon>About
+      <!--      <v-btn text @click="$router.replace({ name: 'home' })">-->
+      <!--        <v-icon>mdi-information-outline</v-icon>About-->
+      <!--      </v-btn>-->
+      <v-btn text @click="$router.replace('/result')">
+        <v-icon>mdi-clipboard-check</v-icon>Result
       </v-btn>
 
       <!--      <v-menu offset-y transition="slide-y-transition">-->

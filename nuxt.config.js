@@ -40,8 +40,34 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios'],
-
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
+  router: {
+    middleware: ['auth'],
+  },
+  auth: {
+    redirect: {
+      login: '/login',
+      home: '/',
+      callback: false,
+      logout: '/logout',
+    },
+    strategies: {
+      laravelSanctum: {
+        provider: 'laravel/sanctum',
+        url: 'https://quick-quiz-back.herokuapp.com',
+        token: {
+          property: 'token',
+          global: true,
+          required: true,
+          type: 'Bearer',
+        },
+        endpoints: {
+          login: { url: '/api/login', method: 'post', propertyName: 'token' },
+          user: { url: '/api/me', method: 'get', propertyName: false },
+        },
+      },
+    },
+  },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
@@ -65,7 +91,8 @@ export default {
   build: {},
 
   axios: {
+    baseURL: 'https://quick-quiz-back.herokuapp.com',
     // proxy: true
-    withCredentials: true,
+    credentials: true,
   },
 }

@@ -1,63 +1,71 @@
 <template>
-  <section style="text-align: -webkit-center">
-    <!--questionBox-->
-    <div
-      v-for="(ques, index) in questions"
-      :key="index"
-      class="row questionBox mb-3"
+  <div>
+    <section
+      v-if="results && results.length > 0"
+      style="text-align: -webkit-center"
     >
-      <div class="col-7" style="border-right: 1px solid #dedede">
-        <div class="questionContainer">
-          <h2 class="titleContainer title">
-            {{ ques.question }}
-            <v-icon
-              aria-hidden="false"
-              :color="ques.correct && ques.answered ? 'success' : 'red'"
-            >
-              {{
-                ques.correct && ques.answered
-                  ? 'mdi-check'
-                  : !ques.correct && ques.answered
-                  ? 'mdi-close'
-                  : ''
-              }}
-            </v-icon>
-            <span class="caption red--text">{{
-              ques.answered ? '' : 'not-answered'
-            }}</span>
-          </h2>
+      <!--questionBox-->
+      <div
+        v-for="(ques, index) in results"
+        :key="index"
+        class="row questionBox mb-3"
+      >
+        <div class="col-7" style="border-right: 1px solid #dedede">
+          <div class="questionContainer">
+            <h2 class="titleContainer title">
+              {{ ques.question }}
+              <v-icon
+                aria-hidden="false"
+                :color="ques.correct && ques.answered ? 'success' : 'red'"
+              >
+                {{
+                  ques.correct && ques.answered
+                    ? 'mdi-check'
+                    : !ques.correct && ques.answered
+                    ? 'mdi-close'
+                    : ''
+                }}
+              </v-icon>
+              <span class="caption red--text">{{
+                ques.answered ? '' : 'not-answered'
+              }}</span>
+            </h2>
 
-          <!-- quizOptions -->
-          <div
-            v-for="(ans, index1) in ques.answers"
-            :key="index1"
-            class="optionContainer"
-          >
+            <!-- quizOptions -->
             <div
-              class="option"
-              :class="
-                ans.is_correct_answer
-                  ? 'success'
-                  : !ans.is_correct_answer && ans.is_user_selected
-                  ? 'red'
-                  : ''
-              "
+              v-for="(ans, index1) in ques.answers"
+              :key="index1"
+              class="optionContainer"
             >
-              {{ ans.option }}
+              <div
+                class="option"
+                :class="
+                  ans.is_correct_answer
+                    ? 'success'
+                    : !ans.is_correct_answer && ans.is_user_selected
+                    ? 'red'
+                    : ''
+                "
+              >
+                {{ ans.option }}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-5">
-        <div>
-          FeedBack: <br />
-          {{ ques.feedback }}
+        <div class="col-5">
+          <div>
+            FeedBack: <br />
+            {{ ques.feedback }}
+          </div>
         </div>
+        <!-- transition -->
       </div>
-      <!-- transition -->
-    </div>
-    <!--/questionBox-->
-  </section>
+      <!--/questionBox-->
+    </section>
+    <section v-else class="test">
+      <div>Sorry, You have not submitted any quiz today</div>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -65,13 +73,31 @@ export default {
   name: 'ResultPage',
   data() {
     return {
-      questions: [],
+      isLoaded: false,
     }
   },
+  head() {
+    return {
+      title: 'ResultPage',
+    }
+  },
+  computed: {
+    results() {
+      return this.$store.getters['user/question/results']
+    },
+  },
   created() {
-    this.$store.dispatch('submittedQuestionDetail').then(() => {
-      this.questions = this.$store.getters.Questions
-    })
+    this.getResult()
+  },
+  methods: {
+    getResult() {
+      this.$store.dispatch('user/question/submittedQuestionDetail').then(() => {
+        this.$nextTick(() => {
+          // this.results = this.$store.state["user/question/results"]
+          // alert(typeof (this.$store.state["user/question/results"]))
+        })
+      })
+    },
   },
 }
 </script>

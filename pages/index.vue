@@ -1,6 +1,9 @@
 <template>
   <div class="welcome">
-    <div class="test">
+    <div v-if="!is_question_available" class="test">
+      No Quiz Available today
+    </div>
+    <div v-else class="test">
       <v-btn
         x-large
         class="ma-2"
@@ -50,7 +53,18 @@ export default {
   data() {
     return {
       dialog: false,
+      is_question_available: false,
     }
+  },
+  head() {
+    return {
+      title: 'HomePage',
+    }
+  },
+  created() {
+    this.$store.dispatch('user/question/todayAvailable').then((res) => {
+      this.is_question_available = res
+    })
   },
 }
 </script>

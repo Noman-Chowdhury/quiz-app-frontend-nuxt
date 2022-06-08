@@ -1,112 +1,133 @@
 <template>
-  <div id="app">
+  <v-main>
     <div id="recaptcha-container"></div>
-    <v-app id="inspire">
-      <v-card class="mx-auto" width="100%" max-width="400">
-        <v-card-title class="title font-weight-regular justify-space-between">
-          <span>{{ currentTitle }}</span>
-        </v-card-title>
-        <v-window v-model="step">
-          <v-window-item :value="1">
-            <v-card-text>
-              <v-text-field
-                v-model="name"
-                :rules="nameRules"
-                :counter="50"
-                label="Enter Your Name"
-                minlength="5"
-                maxlength="50"
-                required
-              ></v-text-field>
-            </v-card-text>
-          </v-window-item>
-          <v-window-item :value="2">
-            <div class="pa-4 text-center">
-              <v-card-text>
-                <v-text-field
-                  v-model="number"
-                  :rules="numberRules"
-                  :counter="11"
-                  label="Enter Phone Number"
-                  minlength="11"
-                  maxlength="11"
-                  required
-                ></v-text-field>
-              </v-card-text>
-            </div>
-          </v-window-item>
-          <v-window-item :value="3">
-            <div class="pa-4 text-center">
-              <v-otp-input
-                v-model="otp"
-                length="6"
-                type="number"
-                @finish="verifyOTP"
-              ></v-otp-input>
-              <v-overlay absolute :value="loading">
-                <v-progress-circular
-                  indeterminate
-                  color="primary"
-                ></v-progress-circular>
-              </v-overlay>
-            </div>
-          </v-window-item>
-          <v-window-item :value="4">
-            <v-card-text>
-              <v-text-field
-                v-model="password"
-                :rules="passwordRules"
-                label="Password"
-                type="password"
-              ></v-text-field>
-              <v-text-field
-                v-model="confirmPassword"
-                :rules="passwordRules"
-                label="Confirm Password"
-                type="password"
-              ></v-text-field>
-            </v-card-text>
-          </v-window-item>
-        </v-window>
+    <v-container fluid fill-height>
+      <v-layout align-center justify-center>
+        <v-flex xs12 sm8 md4>
+          <v-card class="elevation-12">
+            <v-toolbar dark color="primary">
+              <v-toolbar-title>{{ currentTitle }}</v-toolbar-title>
+            </v-toolbar>
+            <v-window v-model="step">
+              <v-window-item :value="1">
+                <v-card-text>
+                  <v-text-field
+                    v-model="name"
+                    :rules="nameRules"
+                    :counter="50"
+                    label="Enter Your Name"
+                    minlength="5"
+                    maxlength="50"
+                    required
+                  ></v-text-field>
+                </v-card-text>
+              </v-window-item>
+              <v-window-item :value="2">
+                <div class="pa-4 text-center">
+                  <v-card-text>
+                    <v-text-field
+                      v-model="number"
+                      :rules="numberRules"
+                      :counter="11"
+                      label="Enter Phone Number"
+                      minlength="11"
+                      maxlength="11"
+                      required
+                    ></v-text-field>
+                  </v-card-text>
+                </div>
+              </v-window-item>
+              <v-window-item :value="3">
+                <div class="pa-4 text-center">
+                  <v-otp-input
+                    v-model="otp"
+                    length="6"
+                    type="number"
+                    @finish="verifyOTP"
+                  ></v-otp-input>
+                  <v-overlay absolute :value="loading">
+                    <v-progress-circular
+                      indeterminate
+                      color="primary"
+                    ></v-progress-circular>
+                  </v-overlay>
+                </div>
+              </v-window-item>
+              <v-window-item :value="4">
+                <v-card-text>
+                  <v-text-field
+                    v-model="password"
+                    :rules="passwordRules"
+                    label="Password"
+                    type="password"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="confirmPassword"
+                    :rules="passwordRules"
+                    label="Confirm Password"
+                    type="password"
+                  ></v-text-field>
+                </v-card-text>
+              </v-window-item>
+            </v-window>
 
-        <v-divider></v-divider>
+            <v-divider></v-divider>
 
-        <v-card-actions>
-          <v-btn :disabled="step === 1" text @click="step--"> Back </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn
-            v-if="step !== 2 && step !== 3 && step !== 4"
-            :disabled="name === ''"
-            color="primary"
-            depressed
-            @click="step++"
-          >
-            Next
-          </v-btn>
-          <v-btn v-if="step === 2" color="primary" depressed @click="sendOtp">
-            Send OTP
-          </v-btn>
-          <!--          <v-btn v-if="step === 3" color="success" depressed @click="verifyOTP">-->
-          <!--            Verify OTP-->
-          <!--          </v-btn>-->
-          <v-btn v-if="step === 3" color="primary" depressed @click="resendOtp">
-            Re-Send OTP
-          </v-btn>
-          <v-btn
-            v-if="step === 4"
-            color="primary"
-            depressed
-            @click="submitForm"
-          >
-            Register
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-app>
-    <v-snackbar v-model="snackbar" :color="snackbarColor" :timeout="2000">
-      {{ message }}
-    </v-snackbar>
-  </div>
+            <v-card-actions>
+              <v-btn :disabled="step === 1" text @click="step--"> Back </v-btn>
+              <NuxtLink v-if="step === 1" to="/login"
+                >Already an Account?</NuxtLink
+              >
+              <v-spacer></v-spacer>
+              <v-btn
+                v-if="step !== 2 && step !== 3 && step !== 4"
+                :disabled="name === ''"
+                color="primary"
+                depressed
+                @click="step++"
+              >
+                Next
+              </v-btn>
+              <v-btn
+                v-if="step === 2"
+                color="primary"
+                depressed
+                @click="sendOtp"
+              >
+                Send OTP
+              </v-btn>
+              <!--          <v-btn v-if="step === 3" color="success" depressed @click="verifyOTP">-->
+              <!--            Verify OTP-->
+              <!--          </v-btn>-->
+              <v-btn
+                v-if="step === 3"
+                color="primary"
+                depressed
+                @click="resendOtp"
+              >
+                Re-Send OTP
+              </v-btn>
+              <v-btn
+                v-if="step === 4"
+                color="primary"
+                depressed
+                @click="submitForm"
+              >
+                Register
+              </v-btn>
+            </v-card-actions>
+            <v-snackbar
+              v-model="snackbar"
+              :color="snackbarColor"
+              :timeout="2000"
+            >
+              {{ message }}
+            </v-snackbar>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-main>
 </template>
 
 <script>
@@ -117,6 +138,7 @@ import {
 } from 'firebase/auth'
 
 export default {
+  auth: 'guest',
   name: 'RegisterPage',
   data: () => ({
     step: 1,
@@ -215,7 +237,7 @@ export default {
               this.snackbarColor = 'success'
               this.message = `Processed OTP Verified.`
               this.snackbar = true
-            }, 3500)
+            }, 1500)
             // User signed in successfully.
             const user = result.user
             // eslint-disable-next-line no-console
@@ -229,7 +251,7 @@ export default {
               this.snackbarColor = 'red accent-2'
               this.message = `Invalid OTP, please try again`
               this.snackbar = true
-            }, 3500)
+            }, 1500)
             // User couldn't sign in (bad verification code?)
             // ...
           })
@@ -269,7 +291,9 @@ export default {
         password: this.password,
         confirm_password: this.confirmPassword,
       }
-      this.$store.dispatch('user/auth/storeUser', user)
+      this.$store.dispatch('user/auth/storeUser', user).then(() => {
+        this.$router.push('/login')
+      })
     },
   },
 }
