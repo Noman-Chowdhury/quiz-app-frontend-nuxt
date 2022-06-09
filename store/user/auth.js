@@ -6,7 +6,7 @@ export default {
     storeUser(ct, pd) {
       return new Promise((resolve, reject) => {
         this.$axios
-          .$post('https://quick-quiz-back.herokuapp.com/api/users', pd)
+          .$post('/api/users', pd)
           .then((response) => {
             resolve(response)
           })

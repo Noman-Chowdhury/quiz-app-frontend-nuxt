@@ -139,6 +139,7 @@
 
 <script>
 export default {
+  auth: 'guest',
   name: 'CreateQuestion',
   data() {
     return {

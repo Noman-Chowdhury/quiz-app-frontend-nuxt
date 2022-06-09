@@ -14,7 +14,7 @@ export default {
     createQuestion(ct, pd) {
       return new Promise((resolve, reject) => {
         this.$axios
-          .$post('https://quick-quiz-back.herokuapp.com/api/question', pd)
+          .$post(`/api/question`, pd)
           .then((response) => {
             resolve(response)
           })
