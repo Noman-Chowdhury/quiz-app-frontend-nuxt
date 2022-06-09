@@ -55,16 +55,18 @@ export default {
       laravelSanctum: {
         provider: 'laravel/sanctum',
         url: 'https://quick-quiz-back.herokuapp.com',
-        token: {
-          property: 'token',
-          global: true,
-          required: true,
-          type: 'Bearer',
-        },
-        endpoints: {
-          login: { url: '/api/login', method: 'post', propertyName: 'token' },
-          user: { url: '/api/me', method: 'get', propertyName: false },
-        },
+        cookie:{
+          token: {
+            property: 'token',
+            global: true,
+            required: true,
+            type: 'Bearer',
+          },
+          endpoints: {
+            login: { url: '/api/login', method: 'post', propertyName: 'token' },
+            user: { url: '/api/me', method: 'get', propertyName: false },
+          },
+        }
       },
     },
   },
