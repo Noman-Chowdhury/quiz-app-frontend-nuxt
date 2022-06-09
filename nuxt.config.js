@@ -92,13 +92,7 @@ export default {
 
   axios: {
     baseURL: 'https://quick-quiz-back.herokuapp.com',
-    proxy: true,
+    // proxy: true
     credentials: true,
-  },
-  proxy: {
-    '/laravel': {
-      target: 'https://quick-quiz-back.herokuapp.com',
-      pathRewrite: { '^/laravel': '/' },
-    },
   },
 }
