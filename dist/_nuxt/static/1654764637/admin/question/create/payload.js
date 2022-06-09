@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/admin/question/create", {data:[{}],fetch:{},mutations:[]});
