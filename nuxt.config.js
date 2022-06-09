@@ -45,12 +45,6 @@ export default {
     middleware: ['auth'],
   },
   auth: {
-    cookie:{
-      options:{
-        httpOnly : true,
-        secure: true
-      }
-    },
     redirect: {
       login: '/login',
       home: '/',
@@ -71,8 +65,6 @@ export default {
           login: { url: '/api/login', method: 'post', propertyName: 'token' },
           user: { url: '/api/me', method: 'get', propertyName: false },
         },
-        tokenRequired: false,
-        tokenType: false
       },
     },
   },
@@ -100,7 +92,13 @@ export default {
 
   axios: {
     baseURL: 'https://quick-quiz-back.herokuapp.com',
-    // proxy: true
+    proxy: true,
     credentials: true,
+  },
+  proxy: {
+    '/laravel': {
+      target: 'https://quick-quiz-back.herokuapp.com',
+      pathRewrite: { '^/laravel': '/' },
+    },
   },
 }
