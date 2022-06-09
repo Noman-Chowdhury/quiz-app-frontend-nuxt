@@ -45,6 +45,12 @@ export default {
     middleware: ['auth'],
   },
   auth: {
+    cookie:{
+      options:{
+        httpOnly : true,
+        secure: true
+      }
+    },
     redirect: {
       login: '/login',
       home: '/',
@@ -65,6 +71,8 @@ export default {
           login: { url: '/api/login', method: 'post', propertyName: 'token' },
           user: { url: '/api/me', method: 'get', propertyName: false },
         },
+        tokenRequired: false,
+        tokenType: false
       },
     },
   },
