@@ -49,12 +49,12 @@ export default {
       login: '/login',
       home: '/',
       callback: false,
-      logout: '/logout',
+      logout: '/login',
     },
     strategies: {
       laravelSanctum: {
         provider: 'laravel/sanctum',
-        url: 'https://quick-quiz-back.herokuapp.com',
+        url:  'http://localhost:8000',
         token: {
           property: 'token',
           global: true,
@@ -63,6 +63,7 @@ export default {
         },
         endpoints: {
           login: { url: '/api/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/api/logout', method: 'post', propertyName: 'token' },
           user: { url: '/api/me', method: 'get', propertyName: false },
         },
       },
@@ -91,7 +92,8 @@ export default {
   build: {},
 
   axios: {
-    baseURL: 'https://quick-quiz-back.herokuapp.com',
+    baseURL: 'http://localhost:8000',
+    // baseURL: 'https://quick-quiz-back.herokuapp.com',
     // proxy: true
     credentials: true,
   },

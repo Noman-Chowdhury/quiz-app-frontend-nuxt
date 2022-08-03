@@ -14,7 +14,7 @@
       <!--      <v-btn text @click="$router.replace({ name: 'home' })">-->
       <!--        <v-icon>mdi-information-outline</v-icon>About-->
       <!--      </v-btn>-->
-      <v-btn text @click="$router.replace('/result')">
+      <v-btn v-if="$auth.user" text @click="$router.replace('/result')">
         <v-icon>mdi-clipboard-check</v-icon>Result
       </v-btn>
 
