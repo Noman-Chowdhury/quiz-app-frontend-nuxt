@@ -19,6 +19,7 @@
                     minlength="5"
                     maxlength="50"
                     required
+                    @keyup.enter="step++"
                   ></v-text-field>
                 </v-card-text>
               </v-window-item>
@@ -90,6 +91,8 @@
               </v-btn>
               <v-btn
                 v-if="step === 2"
+                :loading="buttonLoading"
+                :disabled="buttonLoading"
                 color="primary"
                 depressed
                 @click="sendOtp"
@@ -101,6 +104,8 @@
               <!--          </v-btn>-->
               <v-btn
                 v-if="step === 3"
+                :loading="buttonLoading"
+                :disabled="buttonLoading"
                 color="primary"
                 depressed
                 @click="resendOtp"
@@ -184,6 +189,8 @@ export default {
     snackbarColor: 'default',
     message: '',
     loading: false,
+    loader: null,
+    buttonLoading: false,
   }),
 
   computed: {
@@ -202,11 +209,22 @@ export default {
       }
     },
   },
+  watch: {
+    loader () {
+      const l = this.loader
+      this[l] = !this[l]
+
+      setTimeout(() => (this[l] = false), 3000)
+
+      this.loader = null
+    },
+  },
   created() {
     this.initReCaptcha()
   },
   methods: {
-    sendOtp() {
+    sendOtp(resend=false) {
+      this.buttonLoading =true
       if (process.client) {
         const appVerifier = window.recaptchaVerifier
         signInWithPhoneNumber(getAuth(), '+88' + this.number, appVerifier)
@@ -217,7 +235,17 @@ export default {
             // user in with confirmationResult.confirm(code).
             window.confirmationResult = confirmationResult
             // ...
-            this.step++
+            if (resend !== true) {
+              this.step++
+            }else{
+              setTimeout(() => {
+                this.loading = false
+                this.snackbarColor = 'green'
+                this.message = `Check your inbox. OTP sent just Now`
+                this.snackbar = true
+              }, 1500)
+            }
+            this.buttonLoading =false
           })
           .catch(() => {
             // Error; SMS not sent
@@ -282,7 +310,8 @@ export default {
       }
     },
     resendOtp() {
-      this.sendOtp()
+      this.otp=''
+      this.sendOtp(true)
     },
     submitForm() {
       const user = {
