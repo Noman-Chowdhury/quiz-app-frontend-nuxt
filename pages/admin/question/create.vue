@@ -106,18 +106,27 @@
 
           <v-divider></v-divider>
           <v-row class="mt-2">
-            <v-col cols="12" sm="3" md="3">
+            <v-col
+              v-if="$auth.user.role && $auth.user.role === 'admin'"
+              cols="12"
+              sm="3"
+              md="3"
+            >
               <v-text-field
                 v-model="form.point"
                 label="Point"
                 placeholder="Point"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="9" md="9">
+            <v-col
+              cols="12"
+              :sm="$auth.user.role && $auth.user.role === 'admin' ? '9' : '12'"
+              :md="$auth.user.role && $auth.user.role === 'admin' ? '9' : '12'"
+            >
               <v-textarea
                 v-model="form.feedback"
                 outlined
-                label="Feedback"
+                label="Reference"
               ></v-textarea>
             </v-col>
           </v-row>
@@ -139,7 +148,7 @@
 
 <script>
 export default {
-  auth: 'guest',
+  // auth: 'guest',
   name: 'CreateQuestion',
   data() {
     return {
@@ -172,8 +181,18 @@ export default {
     },
     handleSubmit() {
       this.form.options = this.setOptionVal()
+      // this.$store
+      //   .dispatch('admin/question/createQuestion', this.form)
+      //   .then((response) => {
+      //     if (response.success) {
+      //       this.clearForm()
+      //       this.text = 'Question successfully added'
+      //       this.timeout = 4000
+      //       this.snackbar = true
+      //     }
+      //   })
       this.$store
-        .dispatch('admin/question/createQuestion', this.form)
+        .dispatch('user/contribute/question', this.form)
         .then((response) => {
           if (response.success) {
             this.clearForm()

@@ -49,7 +49,7 @@ export default {
       login: '/login',
       home: '/',
       callback: false,
-      logout: '/logout',
+      logout: '/login',
     },
     strategies: {
       laravelSanctum: {
@@ -63,6 +63,7 @@ export default {
         },
         endpoints: {
           login: { url: '/api/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/api/logout', method: 'post', propertyName: 'token' },
           user: { url: '/api/me', method: 'get', propertyName: false },
         },
       },

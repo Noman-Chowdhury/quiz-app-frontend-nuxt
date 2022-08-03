@@ -210,7 +210,7 @@ export default {
     },
   },
   watch: {
-    loader () {
+    loader() {
       const l = this.loader
       this[l] = !this[l]
 
@@ -223,8 +223,8 @@ export default {
     this.initReCaptcha()
   },
   methods: {
-    sendOtp(resend=false) {
-      this.buttonLoading =true
+    sendOtp(resend = false) {
+      this.buttonLoading = true
       if (process.client) {
         const appVerifier = window.recaptchaVerifier
         signInWithPhoneNumber(getAuth(), '+88' + this.number, appVerifier)
@@ -237,7 +237,7 @@ export default {
             // ...
             if (resend !== true) {
               this.step++
-            }else{
+            } else {
               setTimeout(() => {
                 this.loading = false
                 this.snackbarColor = 'green'
@@ -245,7 +245,7 @@ export default {
                 this.snackbar = true
               }, 1500)
             }
-            this.buttonLoading =false
+            this.buttonLoading = false
           })
           .catch(() => {
             // Error; SMS not sent
@@ -310,7 +310,7 @@ export default {
       }
     },
     resendOtp() {
-      this.otp=''
+      this.otp = ''
       this.sendOtp(true)
     },
     submitForm() {

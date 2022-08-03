@@ -48,13 +48,9 @@ export default {
       })
     },
     submittedQuestionDetail({ commit }) {
-      this.$axios
-        .$get(
-          '/api/user/submitted/questions'
-        )
-        .then((response) => {
-          commit('setSubmittedResult', response.questions)
-        })
+      this.$axios.$get('/api/user/submitted/questions').then((response) => {
+        commit('setSubmittedResult', response.questions)
+      })
     },
     todayAvailable({ commit }) {
       return new Promise((resolve, reject) => {

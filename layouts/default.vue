@@ -1,19 +1,23 @@
 <template>
   <v-app>
-    <HeaderComp />
     <v-main>
-      <v-container>
-        <Nuxt />
-      </v-container>
+      <div class="d-flex overflow-x-hidden">
+        <NavDrawer v-if="$auth.user" />
+        <v-container>
+          <HeaderComp />
+          <Nuxt />
+        </v-container>
+      </div>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import HeaderComp from '@/components/common/Header'
+import NavDrawer from '@/components/common/NavDrawer'
 export default {
   name: 'DefaultLayout',
-  components: { HeaderComp },
+  components: { NavDrawer, HeaderComp },
 }
 </script>
 <style>
