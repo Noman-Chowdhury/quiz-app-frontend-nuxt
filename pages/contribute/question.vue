@@ -1,17 +1,18 @@
 <template>
   <div>
-    <admin-form />
+    <QuestionForm />
   </div>
 </template>
 
 <script>
-import adminForm from '@/pages/admin/question/create'
+import QuestionForm from '@/components/common/QuestionForm'
 
 export default {
   name: 'QuestionPage',
   components: {
-    adminForm,
+    QuestionForm,
   },
+  middleware: ['auth', 'user'],
 }
 </script>
 
