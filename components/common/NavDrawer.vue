@@ -53,7 +53,7 @@ export default {
     }
   },
   created() {
-    if (this.$auth.user) {
+    if (this.$auth.user.role === 'user') {
       this.navs = user
     } else {
       this.navs = admin
