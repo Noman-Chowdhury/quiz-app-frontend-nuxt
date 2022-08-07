@@ -59,7 +59,11 @@ export default {
         })
         .then((response) => {
           console.log(response)
-          // this.$router.push('/')
+          if (this.$store.state.auth.user.role=== 'user') {
+            this.$router.push('/dashboard')
+          }else{
+            this.$router.push('/admin/dashboard')
+          }
         })
         .catch((error) => console.log(error))
     },

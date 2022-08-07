@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--    NAVBAR START-->
-    <v-app-bar app elevate-on-scrol>
+    <v-app-bar absolute elevate-on-scrol>
       <v-toolbar-title class="text-white font-weight-black"
         >QuickQuiz</v-toolbar-title
       >

@@ -3,7 +3,7 @@
     <v-snackbar
       v-model="snackbar"
       :timeout="timeout"
-      color="primary"
+      :color="snackbarColor"
       absolute
       text
     >
@@ -25,13 +25,14 @@
             outlined
             required
           ></v-text-field>
-          <v-row>
+          <v-divider></v-divider>
+          <v-row class="mt-2">
             <v-col cols="12" sm="6" md="6">
               <v-text-field
                 v-model="option.option1"
                 label="Option A"
                 placeholder="Option A"
-                solo
+                outlined
                 :append-icon="
                   option.option_answer === option.option1 &&
                   option.option_answer.length > 1
@@ -50,7 +51,7 @@
                 v-model="option.option2"
                 label="Option B"
                 placeholder="Option B"
-                solo
+                outlined
                 :append-icon="
                   option.option_answer === option.option2 &&
                   option.option_answer.length > 1
@@ -69,7 +70,7 @@
                 v-model="option.option3"
                 label="Option C"
                 placeholder="OptionCB"
-                solo
+                outlined
                 :append-icon="
                   option.option_answer === option.option3 &&
                   option.option_answer.length > 1
@@ -88,7 +89,7 @@
                 v-model="option.option4"
                 label="Option D"
                 placeholder="Option D"
-                solo
+                outlined
                 :append-icon="
                   option.option_answer === option.option4 &&
                   option.option_answer.length > 1
@@ -167,6 +168,7 @@ export default {
       snackbar: false,
       text: '',
       timeout: -1,
+      snackbarColor: 'primary'
     }
   },
   methods: {
@@ -180,26 +182,37 @@ export default {
     },
     handleSubmit() {
       this.form.options = this.setOptionVal()
-      // this.$store
-      //   .dispatch('admin/question/createQuestion', this.form)
-      //   .then((response) => {
-      //     if (response.success) {
-      //       this.clearForm()
-      //       this.text = 'Question successfully added'
-      //       this.timeout = 4000
-      //       this.snackbar = true
-      //     }
-      //   })
-      this.$store
-        .dispatch('user/contribute/question', this.form)
-        .then((response) => {
-          if (response.success) {
-            this.clearForm()
-            this.text = 'Question successfully added'
-            this.timeout = 4000
-            this.snackbar = true
-          }
+      if (this.$auth.user.role === 'admin'){
+        this.$store
+          .dispatch('admin/question/createQuestion', this.form)
+          .then((response) => {
+            if (response.success) {
+              this.clearForm()
+              this.text = 'Question successfully added'
+              this.timeout = 4000
+              this.snackbar = true
+            }
+          })
+      }else {
+        this.$store
+          .dispatch('user/contribute/question', this.form)
+          .then((response) => {
+            if (response.success) {
+              this.clearForm()
+              this.text = 'Question successfully added'
+              this.timeout = 4000
+              this.snackbar = true
+            }
+          }).catch(error=>{
+            if (error.response.data.message){
+              this.text = error.response.data.message
+              this.snackbarColor = 'red'
+              this.timeout = 4000
+              this.snackbar = true
+            }
         })
+      }
+
     },
     setOptionVal() {
       return [

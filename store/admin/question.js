@@ -7,6 +7,7 @@ export default {
   },
   mutations: {
     setQuestions(state, values) {
+      console.log(values)
       state.questions = values
     },
   },
@@ -23,6 +24,11 @@ export default {
           })
       })
     },
+    contributedQuestions(ct){
+      this.$axios.$get('/api/contributed-questions').then((response) => {
+      ct.commit('setQuestions', response.questions)
+      })
+    }
   },
   modules: {},
   getters: {

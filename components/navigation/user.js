@@ -1,17 +1,22 @@
 export default [
   {
     title: 'Dashboard',
-    route: '#',
+    route: '/dashboard',
     icon: 'mdi-view-dashboard',
   },
   {
-    title: 'Result',
+    title: "Today's Result",
+    route: '/result',
+    icon: 'mdi-school',
+  },
+  {
+    title: "All Result",
     route: '/result',
     icon: 'mdi-school',
   },
   {
     title: 'Contribute Question',
     route: '/contribute/question',
-    icon: 'mdi-school',
+    icon: 'mdi-comment-question-outline',
   },
 ]

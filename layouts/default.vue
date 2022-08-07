@@ -1,14 +1,36 @@
 <template>
+<!--  <v-app>-->
+<!--    <v-main>-->
+<!--      <div class="d-flex overflow-x-hidden">-->
+<!--        <NavDrawer v-if="$auth.user" />-->
+<!--        <v-container>-->
+<!--          <HeaderComp />-->
+<!--          <Nuxt />-->
+<!--        </v-container>-->
+<!--      </div>-->
+<!--    </v-main>-->
+<!--  </v-app>-->
   <v-app>
+    <v-navigation-drawer v-if="$auth.user" app>
+      <NavDrawer  />
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <HeaderComp />
+    </v-app-bar>
+
+    <!-- Sizes your content based upon application components -->
     <v-main>
-      <div class="d-flex overflow-x-hidden">
-        <NavDrawer v-if="$auth.user" />
-        <v-container>
-          <HeaderComp />
-          <Nuxt />
-        </v-container>
-      </div>
+      <!-- Provides the application the proper gutter -->
+      <v-container fluid>
+        <!-- If using vue-router -->
+        <Nuxt />
+      </v-container>
     </v-main>
+
+    <v-footer app>
+      <!-- -->
+    </v-footer>
   </v-app>
 </template>
 
