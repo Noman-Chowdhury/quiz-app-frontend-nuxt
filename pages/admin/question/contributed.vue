@@ -1,95 +1,73 @@
 <template>
-<div>
-<div  v-if="questions && questions.length> 0">
-  <v-card v-for="(q, index) in questions" :key="index" class="mt-2">
-    <v-toolbar
-      flat
-      :color="index % 2 === 0 ? 'indigo lighten-2' : 'teal lighten-2'"
-      dark
-    >
-      <v-toolbar-title>{{  q.question }}</v-toolbar-title>
-    </v-toolbar>
-    <v-card-text>
-      <v-item-group>
-        <v-subheader>Answers</v-subheader>
-        <v-item
-          v-for="n in q.answers"
-          :key="n"
+  <div>
+    <div v-if="questions && questions.length > 0">
+      <v-card v-for="(q, index) in questions" :key="index" class="mt-2">
+        <v-toolbar
+          flat
+          :color="index % 2 === 0 ? 'indigo lighten-2' : 'teal lighten-2'"
+          dark
         >
-          <v-chip
-            active-class="green--text"
-            :input-value="n===q.correct_ans"
-          >
-             {{ n }}
-          </v-chip>
-        </v-item>
-      </v-item-group>
-    </v-card-text>
+          <v-toolbar-title>{{ q.question }}</v-toolbar-title>
+        </v-toolbar>
+        <v-card-text>
+          <v-item-group>
+            <v-subheader>Answers</v-subheader>
+            <v-item v-for="n in q.answers" :key="n">
+              <v-chip
+                active-class="green--text"
+                :input-value="n === q.correct_ans"
+              >
+                {{ n }}
+              </v-chip>
+            </v-item>
+          </v-item-group>
+        </v-card-text>
 
-    <v-divider></v-divider>
+        <v-divider></v-divider>
 
-    <v-card-actions>
-       <v-chip class="purple--text">{{ q.contributor_name+' - '+q.contributor_number}}</v-chip>  <v-spacer></v-spacer> <v-chip>{{ 'Submitted - '+q.date }}</v-chip>
-      <v-spacer></v-spacer>
-      <v-btn
-        color="success"
-        depressed
-        @click.stop="openModal(q)"
-      >
-        Take It
-      </v-btn>
-      <v-btn
-        color="red"
-        depressed
-      >
-        Reject It
-      </v-btn>
-    </v-card-actions>
-  </v-card>
-</div>
-  <div v-else>
-    No Contributed Questions Found!
+        <v-card-actions>
+          <v-chip class="purple--text">{{
+            q.contributor_name + ' - ' + q.contributor_number
+          }}</v-chip>
+          <v-spacer></v-spacer> <v-chip>{{ 'Submitted - ' + q.date }}</v-chip>
+          <v-spacer></v-spacer>
+          <v-btn color="success" depressed @click.stop="openModal(q)">
+            Take It
+          </v-btn>
+          <v-btn color="red" depressed> Reject It </v-btn>
+        </v-card-actions>
+      </v-card>
+    </div>
+    <div v-else>No Contributed Questions Found!</div>
+    <v-dialog v-model="dialog" max-width="290">
+      <v-card>
+        <v-card-title>Point?</v-card-title>
+        <v-card-text>
+          <v-text-field
+            v-model="form.point"
+            placeholder="Enter point for this question"
+          ></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="green darken-1" text @click="dialog = false">
+            Close
+          </v-btn>
+
+          <v-btn color="green darken-1" text @click="takeQuestion">
+            Done
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
-  <v-dialog
-    v-model="dialog"
-    max-width="290"
-  >
-    <v-card>
-      <v-card-title>Point?</v-card-title>
-      <v-card-text >
-        <v-text-field
-          v-model="form.point"
-          placeholder="Enter point for this question"
-        ></v-text-field>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-
-        <v-btn
-          color="green darken-1"
-          text
-          @click="dialog = false"
-        >
-          Close
-        </v-btn>
-
-        <v-btn
-          color="green darken-1"
-          text
-          @click="takeQuestion"
-        >
-          Done
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
-</div>
 </template>
 
 <script>
 export default {
-  name: "ContributedPage",
-  data(){
+  name: 'ContributedPage',
+  data() {
     return {
       dialog: false,
       option: {
@@ -115,7 +93,7 @@ export default {
   created() {
     this.getQuestions()
   },
-  methods:{
+  methods: {
     getQuestions() {
       this.$store.dispatch('admin/question/contributedQuestions').then(() => {
         this.$nextTick(() => {
@@ -124,7 +102,7 @@ export default {
         })
       })
     },
-    takeQuestion(){
+    takeQuestion() {
       this.$store
         .dispatch('admin/question/createQuestion', this.form)
         .then((response) => {
@@ -136,17 +114,17 @@ export default {
           }
         })
     },
-    openModal(object){
-      this.option.option1=object.answers[0]
-      this.option.option2=object.answers[1]
-      this.option.option3=object.answers[2]
-      this.option.option4=object.answers[3]
-      this.option.option_answer=object.correct_ans
+    openModal(object) {
+      this.option.option1 = object.answers[0]
+      this.option.option2 = object.answers[1]
+      this.option.option3 = object.answers[2]
+      this.option.option4 = object.answers[3]
+      this.option.option_answer = object.correct_ans
       this.form.feedback = object.reference
       this.form.question = object.question
       this.form.options = this.setOptionVal()
       this.form.temp_question = true
-      this.form.temp_question_id = (object.id)
+      this.form.temp_question_id = object.id
       this.dialog = true
     },
     setOptionVal() {
@@ -169,10 +147,8 @@ export default {
         },
       ]
     },
-  }
+  },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

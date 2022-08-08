@@ -1,16 +1,12 @@
 <template>
-<div>
-  Dashboard
-</div>
+  <div>Dashboard</div>
 </template>
 
 <script>
 export default {
-  name: "DashboardPage",
-  middleware: ['auth', 'user']
+  name: 'DashboardPage',
+  middleware: ['auth', 'user'],
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

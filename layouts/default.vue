@@ -1,18 +1,18 @@
 <template>
-<!--  <v-app>-->
-<!--    <v-main>-->
-<!--      <div class="d-flex overflow-x-hidden">-->
-<!--        <NavDrawer v-if="$auth.user" />-->
-<!--        <v-container>-->
-<!--          <HeaderComp />-->
-<!--          <Nuxt />-->
-<!--        </v-container>-->
-<!--      </div>-->
-<!--    </v-main>-->
-<!--  </v-app>-->
+  <!--  <v-app>-->
+  <!--    <v-main>-->
+  <!--      <div class="d-flex overflow-x-hidden">-->
+  <!--        <NavDrawer v-if="$auth.user" />-->
+  <!--        <v-container>-->
+  <!--          <HeaderComp />-->
+  <!--          <Nuxt />-->
+  <!--        </v-container>-->
+  <!--      </div>-->
+  <!--    </v-main>-->
+  <!--  </v-app>-->
   <v-app>
     <v-navigation-drawer v-if="$auth.user" app>
-      <NavDrawer  />
+      <NavDrawer />
     </v-navigation-drawer>
 
     <v-app-bar app>

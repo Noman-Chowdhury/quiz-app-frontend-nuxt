@@ -24,7 +24,7 @@ export default {
   props: {
     // eslint-disable-next-line vue/require-default-prop
     seconds: Number,
-    // eslint-disable-next-line vue/require-default-prop
+    // eslint-disable-next-line vue/require-default-prop,vue/require-prop-types
     default: () => 0,
   },
   data() {

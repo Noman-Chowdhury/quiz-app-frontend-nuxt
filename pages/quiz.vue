@@ -252,7 +252,7 @@ export default {
         .then(() => {
           this.questions = this.$store.getters['user/question/Questions']
           this.userResponses = Array(this.questions.length).fill(null)
-          this.countDown = this.$store.getters.Time
+          this.countDown = this.$store.getters['user/question/Time']
           this.startCounting = true
         })
         .catch(() => {

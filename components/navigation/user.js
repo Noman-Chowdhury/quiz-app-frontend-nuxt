@@ -5,12 +5,17 @@ export default [
     icon: 'mdi-view-dashboard',
   },
   {
+    title: 'Quiz',
+    route: '/',
+    icon: 'mdi-view-dashboard',
+  },
+  {
     title: "Today's Result",
     route: '/result',
     icon: 'mdi-school',
   },
   {
-    title: "All Result",
+    title: 'All Result',
     route: '/result',
     icon: 'mdi-school',
   },

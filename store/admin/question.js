@@ -24,11 +24,11 @@ export default {
           })
       })
     },
-    contributedQuestions(ct){
+    contributedQuestions(ct) {
       this.$axios.$get('/api/contributed-questions').then((response) => {
-      ct.commit('setQuestions', response.questions)
+        ct.commit('setQuestions', response.questions)
       })
-    }
+    },
   },
   modules: {},
   getters: {

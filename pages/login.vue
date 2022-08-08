@@ -59,9 +59,9 @@ export default {
         })
         .then((response) => {
           console.log(response)
-          if (this.$store.state.auth.user.role=== 'user') {
+          if (this.$store.state.auth.user.role === 'user') {
             this.$router.push('/dashboard')
-          }else{
+          } else {
             this.$router.push('/admin/dashboard')
           }
         })

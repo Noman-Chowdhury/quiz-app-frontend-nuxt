@@ -168,7 +168,7 @@ export default {
       snackbar: false,
       text: '',
       timeout: -1,
-      snackbarColor: 'primary'
+      snackbarColor: 'primary',
     }
   },
   methods: {
@@ -182,7 +182,7 @@ export default {
     },
     handleSubmit() {
       this.form.options = this.setOptionVal()
-      if (this.$auth.user.role === 'admin'){
+      if (this.$auth.user.role === 'admin') {
         this.$store
           .dispatch('admin/question/createQuestion', this.form)
           .then((response) => {
@@ -193,7 +193,7 @@ export default {
               this.snackbar = true
             }
           })
-      }else {
+      } else {
         this.$store
           .dispatch('user/contribute/question', this.form)
           .then((response) => {
@@ -203,16 +203,16 @@ export default {
               this.timeout = 4000
               this.snackbar = true
             }
-          }).catch(error=>{
-            if (error.response.data.message){
+          })
+          .catch((error) => {
+            if (error.response.data.message) {
               this.text = error.response.data.message
               this.snackbarColor = 'red'
               this.timeout = 4000
               this.snackbar = true
             }
-        })
+          })
       }
-
     },
     setOptionVal() {
       return [
