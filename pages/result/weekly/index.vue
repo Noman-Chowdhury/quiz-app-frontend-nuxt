@@ -8,7 +8,9 @@
       }"
       :line-numbers="true"
       style-class="vgt-table striped bordered condensed body-2"
-      :rows="rows">
+      :rows="rows"
+      @on-row-click="onRowHover"
+      @on-cell-click="onRowClick">
       <template
         slot="table-row"
         slot-scope="props"
@@ -46,8 +48,8 @@ export default {
           field: 'total_marks',
         },
         {
-          label: 'Exam Date',
-          field: 'exam_date',
+          label: 'Status',
+          field: 'status',
         },
       ],
     };
@@ -63,6 +65,14 @@ export default {
   methods: {
     getResult() {
       this.$store.dispatch('user/result/getPreviousResults')
+    },
+    onRowHover() {
+    //
+    },
+    onRowClick(params) {
+      // this.$router.push({name:'result-weekly', params:{slug:params.row.id}})
+      this.$router.push(`/result/weekly/${params.row.id}`)
+      // console.log(this.$route.params)
     },
   },
 };

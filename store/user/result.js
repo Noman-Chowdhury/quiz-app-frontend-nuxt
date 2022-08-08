@@ -21,6 +21,20 @@ export default {
           })
       })
     },
+    getWeeklyResult(commit, payload) {
+      // console.log(payload)
+      return new Promise((resolve, reject) => {
+        this.$axios
+          .$get(`user/daily-history/${payload.slug}`)
+          .then((response) => {
+            commit('setPreviousResults', response.histories)
+            resolve()
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      })
+    },
   },
   getters: {
     previousResults(state) {
