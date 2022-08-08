@@ -11,6 +11,12 @@
       <v-btn text @click="$router.replace('/')">
         <v-icon>mdi-home-outline</v-icon>Home
       </v-btn>
+      <v-btn text @click="$router.replace('/')">
+        <v-icon>mdi-book-open-page-variant-outline</v-icon>Quran
+      </v-btn>
+      <v-btn text @click="$router.replace('/')">
+        <v-icon>mdi-bookshelf</v-icon>Hadith
+      </v-btn>
       <!--      <v-btn text @click="$router.replace({ name: 'home' })">-->
       <!--        <v-icon>mdi-information-outline</v-icon>About-->
       <!--      </v-btn>-->
