@@ -15,6 +15,7 @@
                   name="login"
                   label="Login"
                   type="text"
+                  @keyup.enter="login"
                 ></v-text-field>
                 <v-text-field
                   id="password"
@@ -23,6 +24,7 @@
                   name="password"
                   label="Password"
                   type="password"
+                  @keyup.enter="login"
                 ></v-text-field>
               </v-form>
             </v-card-text>
