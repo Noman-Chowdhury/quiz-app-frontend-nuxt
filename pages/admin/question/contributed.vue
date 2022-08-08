@@ -31,14 +31,16 @@
           }}</v-chip>
           <v-spacer></v-spacer> <v-chip>{{ 'Submitted - ' + q.date }}</v-chip>
           <v-spacer></v-spacer>
-          <v-btn color="teal darken-1" dark @click.stop="openModal(q)"> Take </v-btn>
+          <v-btn color="teal darken-1" dark @click.stop="openModal(q)">
+            Take
+          </v-btn>
           <v-btn
             color="deep-orange darken-1"
             outlined
             dark
             @click.stop="rejectQuestion(q.id)"
           >
-          Reject
+            Reject
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -101,8 +103,7 @@ export default {
   methods: {
     getQuestions() {
       this.$store.dispatch('admin/question/contributedQuestions').then(() => {
-        this.$nextTick(() => {
-        })
+        this.$nextTick(() => {})
       })
     },
     takeQuestion() {
@@ -152,12 +153,11 @@ export default {
         },
       ]
     },
-    rejectQuestion(id){
-    this.$store.dispatch('admin/question/deleteQuestion',id)
-      .then(res =>{
+    rejectQuestion(id) {
+      this.$store.dispatch('admin/question/deleteQuestion', id).then((res) => {
         this.getQuestions()
       })
-    }
+    },
   },
 }
 </script>

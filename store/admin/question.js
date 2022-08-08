@@ -28,16 +28,18 @@ export default {
         ct.commit('setQuestions', response.questions)
       })
     },
-    deleteQuestion(ct,pd){
+    deleteQuestion(ct, pd) {
       return new Promise((resolve, reject) => {
-        this.$axios.post(`/api/remove-contributed-question/${pd}`)
-          .then((response)=>{
+        this.$axios
+          .post(`/api/remove-contributed-question/${pd}`)
+          .then((response) => {
             resolve(response)
-          }).catch(error=>{
-          reject(error)
-        })
+          })
+          .catch((error) => {
+            reject(error)
+          })
       })
-    }
+    },
   },
   modules: {},
   getters: {

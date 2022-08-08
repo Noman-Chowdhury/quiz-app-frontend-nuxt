@@ -24,18 +24,21 @@
         </v-toolbar>
         <v-card-text>
           <v-item-group>
-            <v-subheader>My Answer:&nbsp;
+            <v-subheader
+              >My Answer:&nbsp;
               <v-chip
-              :color="q.correct_answer===q.my_answer?'green lighten-2':'red lighten-2'"
-              dark
-            >
-              {{ q.my_answer }}
-            </v-chip>
+                :color="
+                  q.correct_answer === q.my_answer
+                    ? 'green lighten-2'
+                    : 'red lighten-2'
+                "
+                dark
+              >
+                {{ q.my_answer }}
+              </v-chip>
               <v-spacer></v-spacer>
               Correct Answer:&nbsp;
-              <v-chip
-                active-class="green--text"
-              >
+              <v-chip active-class="green--text">
                 {{ q.correct_answer }}
               </v-chip>
             </v-subheader>
@@ -49,27 +52,26 @@
 
 <script>
 export default {
-  name: "DetailPage",
-  data(){
-    return{
-    }
+  name: 'DetailPage',
+  data() {
+    return {}
   },
-  computed:{
-    items(){
-     return this.$store.getters["user/result/dailyResult"]
-    }
+  computed: {
+    items() {
+      return this.$store.getters['user/result/dailyResult']
+    },
   },
   mounted() {
     this.getWeekResult()
   },
-  methods:{
-    getWeekResult(){
-      this.$store.dispatch('user/result/getWeeklyResult', {slug:this.$route.params.slug})
-    }
-  }
+  methods: {
+    getWeekResult() {
+      this.$store.dispatch('user/result/getWeeklyResult', {
+        slug: this.$route.params.slug,
+      })
+    },
+  },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
