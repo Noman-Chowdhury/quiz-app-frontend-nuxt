@@ -7,7 +7,7 @@ export default [
   {
     title: 'Leader Board',
     route: '/leaderboard',
-    icon: 'mdi-view-dashboard',
+    icon: 'mdi-podium-gold',
   },
   {
     title: 'Quiz',
