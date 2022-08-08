@@ -7,7 +7,6 @@ export default {
   },
   mutations: {
     setQuestions(state, values) {
-      console.log(values)
       state.questions = values
     },
   },
@@ -29,6 +28,16 @@ export default {
         ct.commit('setQuestions', response.questions)
       })
     },
+    deleteQuestion(ct,pd){
+      return new Promise((resolve, reject) => {
+        this.$axios.post(`/api/remove-contributed-question/${pd}`)
+          .then((response)=>{
+            resolve(response)
+          }).catch(error=>{
+          reject(error)
+        })
+      })
+    }
   },
   modules: {},
   getters: {

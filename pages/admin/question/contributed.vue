@@ -31,10 +31,15 @@
           }}</v-chip>
           <v-spacer></v-spacer> <v-chip>{{ 'Submitted - ' + q.date }}</v-chip>
           <v-spacer></v-spacer>
-          <v-btn color="success" depressed @click.stop="openModal(q)">
-            Take It
+          <v-btn color="teal darken-1" dark @click.stop="openModal(q)"> Take </v-btn>
+          <v-btn
+            color="deep-orange darken-1"
+            outlined
+            dark
+            @click.stop="rejectQuestion(q.id)"
+          >
+          Reject
           </v-btn>
-          <v-btn color="red" depressed> Reject It </v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -80,7 +85,7 @@ export default {
       form: {
         question: '',
         options: [],
-        point: null,
+        point: 1,
         feedback: '',
       },
     }
@@ -97,8 +102,6 @@ export default {
     getQuestions() {
       this.$store.dispatch('admin/question/contributedQuestions').then(() => {
         this.$nextTick(() => {
-          // this.results = this.$store.state["user/question/results"]
-          // alert(typeof (this.$store.state["user/question/results"]))
         })
       })
     },
@@ -107,6 +110,8 @@ export default {
         .dispatch('admin/question/createQuestion', this.form)
         .then((response) => {
           if (response.success) {
+            this.form.point = 1
+            this.getQuestions()
             this.dialog = false
             this.text = 'Question successfully added'
             this.timeout = 4000
@@ -147,6 +152,12 @@ export default {
         },
       ]
     },
+    rejectQuestion(id){
+    this.$store.dispatch('admin/question/deleteQuestion',id)
+      .then(res =>{
+        this.getQuestions()
+      })
+    }
   },
 }
 </script>

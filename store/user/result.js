@@ -25,7 +25,7 @@ export default {
       // console.log(payload)
       return new Promise((resolve, reject) => {
         this.$axios
-          .$get(`user/daily-history/${payload.slug}`)
+          .$get(`/api/user/daily-history/${payload.slug}`)
           .then((response) => {
             commit('setPreviousResults', response.histories)
             resolve()

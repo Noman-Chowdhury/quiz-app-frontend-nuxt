@@ -54,7 +54,7 @@ export default {
     strategies: {
       laravelSanctum: {
         provider: 'laravel/sanctum',
-        url: 'http://localhost:8000',
+        url: 'http://localhost:5000',
         token: {
           property: 'token',
           global: true,
@@ -93,7 +93,7 @@ export default {
 
   axios: {
     // baseURL: 'https://quick-quiz-back.herokuapp.com',
-    baseURL: 'http://localhost:8000',
+    baseURL: 'http://localhost:5000',
     // proxy: true
     credentials: true,
   },
