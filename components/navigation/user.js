@@ -16,7 +16,7 @@ export default [
   },
   {
     title: "All Result",
-    route: '/result/weekly-result',
+    route: '/result/weekly',
     icon: 'mdi-school',
   },
   {
