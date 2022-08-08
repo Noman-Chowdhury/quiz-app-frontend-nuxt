@@ -11,12 +11,12 @@ export default [
   },
   {
     title: "Today's Result",
-    route: '/result',
+    route: '/result/current-day',
     icon: 'mdi-school',
   },
   {
-    title: 'All Result',
-    route: '/result',
+    title: "All Result",
+    route: '/result/weekly-result',
     icon: 'mdi-school',
   },
   {

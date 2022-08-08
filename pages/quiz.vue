@@ -154,7 +154,7 @@
                 dark
                 class="ma-2"
                 color="light-blue darken-4"
-                @click="$router.push('/result')"
+                @click="$router.push('/result/current-day')"
               >
                 Detail Result
               </v-btn>

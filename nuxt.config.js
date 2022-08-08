@@ -24,7 +24,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['firebase'],
+  plugins: ['firebase', { src: '~/plugins/vue-good-table', ssr: false }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -54,7 +54,7 @@ export default {
     strategies: {
       laravelSanctum: {
         provider: 'laravel/sanctum',
-        url: 'http://localhost:5000',
+        url: 'http://localhost:8000',
         token: {
           property: 'token',
           global: true,
@@ -93,7 +93,7 @@ export default {
 
   axios: {
     // baseURL: 'https://quick-quiz-back.herokuapp.com',
-    baseURL: 'http://localhost:5000',
+    baseURL: 'http://localhost:8000',
     // proxy: true
     credentials: true,
   },
