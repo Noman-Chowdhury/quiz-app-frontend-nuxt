@@ -73,7 +73,6 @@ export default {
       return state.time
     },
     results(state) {
-      console.log('results')
       return state.results
     },
   },

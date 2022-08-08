@@ -263,6 +263,7 @@ export default {
       if (process.client) {
         document.addEventListener('visibilitychange', (event) => {
           if (document.visibilityState === 'visible') {
+            // eslint-disable-next-line no-console
             console.log('here')
           } else {
             this.changedTab = 0

@@ -15,5 +15,3 @@ export default {
   middleware: ['auth', 'user'],
 }
 </script>
-
-<style scoped></style>

@@ -8,5 +8,3 @@ export default {
   middleware: ['auth', 'admin'],
 }
 </script>
-
-<style scoped></style>

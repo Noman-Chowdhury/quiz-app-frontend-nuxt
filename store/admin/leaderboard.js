@@ -19,7 +19,6 @@ export default {
   actions: {
     dailyReport(ct) {
       this.$axios.get('/api/leaderboard/daily').then((r) => {
-        console.log(r)
         ct.commit('setDailyReport', r.data)
       })
     },

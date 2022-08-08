@@ -60,13 +60,13 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response)
           if (this.$store.state.auth.user.role === 'user') {
             this.$router.push('/dashboard')
           } else {
             this.$router.push('/admin/dashboard')
           }
         })
+        // eslint-disable-next-line no-console
         .catch((error) => console.log(error))
     },
   },
