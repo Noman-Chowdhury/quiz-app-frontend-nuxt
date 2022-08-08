@@ -7,7 +7,7 @@ export default [
   {
     title: 'Quiz',
     route: '/',
-    icon: 'mdi-view-dashboard',
+    icon: 'mdi-progress-question',
   },
   {
     title: "Today's Result",
@@ -17,7 +17,7 @@ export default [
   {
     title: "All Result",
     route: '/result/weekly',
-    icon: 'mdi-school',
+    icon: 'mdi-book-education',
   },
   {
     title: 'Contribute Question',
