@@ -41,9 +41,9 @@
                 class="option"
                 :class="
                   ans.is_correct_answer
-                    ? 'success'
+                    ? 'green lighten-2 white--text'
                     : !ans.is_correct_answer && ans.is_user_selected
-                    ? 'red'
+                    ? 'red lighten-2 white--text'
                     : ''
                 "
               >
